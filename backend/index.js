@@ -1,13 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require('dotenv').config()
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 
-mongoose.connect("mongodb://localhost:27017/Todolist").then(() => {
+mongoose.connect(process.env.MONGODB_URL).then(() => {
   console.log("connected");
 }).catch((err) => {
   console.error("errorr:", err);
@@ -49,5 +50,5 @@ app.delete("/product/:id", async (req, res) => {
 });
 
 
-const PORT = 8081;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));
