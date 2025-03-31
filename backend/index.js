@@ -18,18 +18,20 @@ const TaskSchema = new mongoose.Schema({
   completed: Boolean,
 });
 const Task = mongoose.model("Task", TaskSchema);
-
+//Get Data
 app.get("/product", async (req, res) => {
   const products = await Task.find();
   res.json(products);
 });
-
+//Add NewData
 app.post("/product", async (req, res) => {
   const { text } = req.body;
   const productnew = new Task({ text, completed: false });
   await productnew.save();
   res.json(productnew);
 });
+
+//Tak Completed
 
 app.put("/product/:id", async (req, res) => {
   const { id } = req.params;
@@ -39,6 +41,7 @@ app.put("/product/:id", async (req, res) => {
   res.json(productid);
 });
 
+//Delete task
 app.delete("/product/:id", async (req, res) => {
   const { id } = req.params;
   await productsave.findByIdAndDelete(id);
